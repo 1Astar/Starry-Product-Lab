@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="48%" r="74%">
+      <stop offset="0" stop-color="#eda8d9"/>
+      <stop offset=".38" stop-color="#3b2855"/>
+      <stop offset="1" stop-color="#070817"/>
+    </radialGradient>
+    <linearGradient id="device" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1ef"/>
+      <stop offset="1" stop-color="#8b7bb5"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="30" fill="url(#bg)"/>
+  <g opacity=".38" stroke="#ffd5f3" fill="none">
+    <path d="M92 250 C172 160 250 285 326 202 S480 120 562 190"/>
+    <ellipse cx="328" cy="212" rx="238" ry="74"/>
+  </g>
+  <g transform="translate(231 96)">
+    <rect x="0" y="52" width="178" height="130" rx="34" fill="url(#device)" stroke="#ffe0f8" stroke-width="3"/>
+    <circle cx="55" cy="112" r="11" fill="#151525"/><circle cx="122" cy="112" r="11" fill="#151525"/>
+    <path d="M74 143 Q89 154 105 143" stroke="#33223d" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M36 58 Q44 20 78 48" fill="#e9d2ef"/><path d="M142 58 Q134 20 100 48" fill="#e9d2ef"/>
+    <rect x="64" y="0" width="50" height="28" rx="14" fill="#151525"/>
+    <circle cx="89" cy="14" r="6" fill="#ffd58c"/>
+  </g>
+  <g fill="#ffe1aa">
+    <circle cx="143" cy="116" r="4"/><circle cx="496" cy="288" r="3"/><circle cx="536" cy="119" r="2"/>
+  </g>
+  <text x="44" y="58" fill="#fff1fa" font-family="Georgia, serif" font-size="29">AI PET HARDWARE</text>
+  <text x="45" y="340" fill="#f0d5e7" font-family="Microsoft YaHei, sans-serif" font-size="16">从设备控制，到能被感知的情绪陪伴体验</text>
+</svg>

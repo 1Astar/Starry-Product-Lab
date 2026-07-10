@@ -3,6 +3,7 @@ dist/
 .vite/
 coverage/
 *.tsbuildinfo
+tmp/
 
 outputs/
 *.zip

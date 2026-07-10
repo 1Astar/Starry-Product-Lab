@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <radialGradient id="bg" cx="48%" cy="46%" r="72%">
+      <stop offset="0" stop-color="#8ce5a2"/>
+      <stop offset=".34" stop-color="#273d55"/>
+      <stop offset="1" stop-color="#06091e"/>
+    </radialGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#020514" flood-opacity=".4"/></filter>
+  </defs>
+  <rect width="640" height="400" rx="30" fill="url(#bg)"/>
+  <g stroke="#d8ffd9" stroke-width="2" opacity=".45" fill="none">
+    <path d="M174 206 H318 H466"/>
+    <path d="M318 206 V112"/>
+    <path d="M318 206 V300"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="104" y="156" width="140" height="100" rx="20" fill="#111a2d" stroke="#c7ffd5"/>
+    <rect x="250" y="70" width="136" height="84" rx="18" fill="#eef9e9" fill-opacity=".82" stroke="#c7ffd5"/>
+    <rect x="430" y="156" width="122" height="100" rx="20" fill="#111a2d" stroke="#c7ffd5"/>
+    <rect x="250" y="258" width="136" height="82" rx="18" fill="#eef9e9" fill-opacity=".82" stroke="#c7ffd5"/>
+  </g>
+  <g fill="#f6d98c">
+    <circle cx="174" cy="206" r="9"/><circle cx="318" cy="112" r="9"/><circle cx="318" cy="300" r="9"/><circle cx="466" cy="206" r="9"/>
+  </g>
+  <path d="M116 286 C208 238 263 304 330 252 S461 205 546 230" stroke="#ffe1a0" stroke-width="3" fill="none"/>
+  <text x="44" y="58" fill="#f1fff2" font-family="Georgia, serif" font-size="29">IoT OPS PLATFORM</text>
+  <text x="45" y="340" fill="#d9f4dc" font-family="Microsoft YaHei, sans-serif" font-size="16">把告警、权限和工单翻译成清楚的下一步</text>
+</svg>
