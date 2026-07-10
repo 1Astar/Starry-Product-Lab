@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vite/
+coverage/
+*.tsbuildinfo
+
+outputs/
+*.zip
+
+.DS_Store
+Thumbs.db
+*.log
