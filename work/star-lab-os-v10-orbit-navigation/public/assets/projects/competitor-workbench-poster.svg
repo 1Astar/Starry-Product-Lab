@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <radialGradient id="bg" cx="56%" cy="48%" r="72%">
+      <stop offset="0" stop-color="#80b9ff"/>
+      <stop offset=".36" stop-color="#26345f"/>
+      <stop offset="1" stop-color="#06091e"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7efe5" stop-opacity=".92"/>
+      <stop offset="1" stop-color="#8ba7ce" stop-opacity=".4"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="14" stdDeviation="15" flood-color="#020514" flood-opacity=".45"/></filter>
+  </defs>
+  <rect width="640" height="400" rx="30" fill="url(#bg)"/>
+  <g stroke="#c8d8ff" opacity=".35" fill="none">
+    <path d="M48 91 H586"/><path d="M48 156 H586"/><path d="M48 221 H586"/><path d="M48 286 H586"/>
+    <path d="M142 54 V334"/><path d="M278 54 V334"/><path d="M446 54 V334"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="74" y="92" width="148" height="196" rx="18" fill="url(#panel)" stroke="#dfeaff"/>
+    <rect x="248" y="68" width="150" height="244" rx="18" fill="#121a38" stroke="#b7c9ff"/>
+    <rect x="426" y="108" width="140" height="164" rx="18" fill="url(#panel)" stroke="#dfeaff"/>
+  </g>
+  <g fill="#f7c677">
+    <circle cx="312" cy="146" r="13"/><circle cx="312" cy="202" r="25" opacity=".8"/><circle cx="312" cy="260" r="9"/>
+  </g>
+  <path d="M116 242 C184 190 236 247 308 198 S448 140 530 194" stroke="#ffd68e" stroke-width="3" fill="none"/>
+  <text x="44" y="56" fill="#eef5ff" font-family="Georgia, serif" font-size="28">COMPETITOR WORKBENCH</text>
+  <text x="45" y="338" fill="#dbe7ff" font-family="Microsoft YaHei, sans-serif" font-size="16">把零散竞品信息，收成可比较的产品判断材料</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <radialGradient id="bg" cx="54%" cy="48%" r="72%">
+      <stop offset="0" stop-color="#f5b56d"/>
+      <stop offset=".34" stop-color="#4a315c"/>
+      <stop offset="1" stop-color="#070817"/>
+    </radialGradient>
+    <radialGradient id="planet" cx="32%" cy="25%" r="70%">
+      <stop offset="0" stop-color="#ffe6b8"/>
+      <stop offset=".5" stop-color="#e8864c"/>
+      <stop offset="1" stop-color="#6a2f41"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="30" fill="url(#bg)"/>
+  <g opacity=".35" stroke="#ffe0a6" fill="none">
+    <ellipse cx="350" cy="205" rx="230" ry="84"/>
+    <path d="M96 314 C184 244 240 316 316 254 S460 174 558 220"/>
+  </g>
+  <circle cx="350" cy="202" r="80" fill="url(#planet)"/>
+  <ellipse cx="350" cy="202" rx="134" ry="35" fill="none" stroke="#ffd18b" stroke-width="6" opacity=".82"/>
+  <g fill="#101329" opacity=".45">
+    <rect x="143" y="104" width="106" height="146" rx="14"/>
+    <rect x="165" y="126" width="62" height="8" rx="4" fill="#ffe0a6" opacity=".7"/>
+    <rect x="165" y="156" width="42" height="8" rx="4" fill="#ffe0a6" opacity=".55"/>
+    <rect x="165" y="186" width="68" height="8" rx="4" fill="#ffe0a6" opacity=".45"/>
+  </g>
+  <path d="M452 92 l11 27 27 11-27 11-11 27-11-27-27-11 27-11z" fill="#ffe1a1"/>
+  <text x="44" y="58" fill="#fff0d8" font-family="Georgia, serif" font-size="31">STAR PM</text>
+  <text x="45" y="340" fill="#f3d8b0" font-family="Microsoft YaHei, sans-serif" font-size="16">给野生灵感修一条轨道，醒来时找得到家</text>
+</svg>

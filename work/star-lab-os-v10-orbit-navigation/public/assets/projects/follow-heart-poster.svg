@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#7b66c8"/>
+      <stop offset=".42" stop-color="#221b4a"/>
+      <stop offset="1" stop-color="#07091d"/>
+    </radialGradient>
+    <radialGradient id="card" cx="38%" cy="28%" r="70%">
+      <stop offset="0" stop-color="#fff2b9"/>
+      <stop offset=".46" stop-color="#a678d8"/>
+      <stop offset="1" stop-color="#1b183a"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="400" rx="30" fill="url(#bg)"/>
+  <g opacity=".45" stroke="#d8c2ff" fill="none">
+    <ellipse cx="332" cy="204" rx="240" ry="86"/>
+    <ellipse cx="332" cy="204" rx="178" ry="56"/>
+    <path d="M72 318 C182 238 269 366 406 282 S560 220 610 250"/>
+  </g>
+  <g fill="#fff2c7" opacity=".85">
+    <circle cx="94" cy="74" r="2"/><circle cx="167" cy="338" r="1.6"/><circle cx="509" cy="66" r="2.2"/><circle cx="572" cy="292" r="1.8"/>
+  </g>
+  <g transform="translate(250 72) rotate(-8)" filter="url(#glow)">
+    <rect x="0" y="0" width="150" height="226" rx="18" fill="url(#card)" stroke="#f5d9a0" stroke-width="3"/>
+    <path d="M75 38 L91 86 L141 86 L100 116 L116 166 L75 136 L34 166 L50 116 L9 86 L59 86 Z" fill="#ffe7a0"/>
+    <text x="75" y="198" text-anchor="middle" fill="#fce9bf" font-family="Georgia, serif" font-size="21">The Star</text>
+  </g>
+  <text x="44" y="58" fill="#f4e6ff" font-family="Georgia, serif" font-size="28">SUI XIN ER XING</text>
+  <text x="45" y="88" fill="#d7c3ef" font-family="Microsoft YaHei, sans-serif" font-size="15">从手势塔罗长出来的自我探索产品</text>
+  <text x="428" y="338" fill="#ffd996" font-family="KaiTi, cursive" font-size="22">今日主线：P1 结果页优化</text>
+</svg>
