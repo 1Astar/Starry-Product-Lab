@@ -59,3 +59,12 @@
 - 增加项目类别筛选：全部、公开作品、工作案例、灵感实验。
 - 增加桌宠拖动互动，并保留点击气泡台词。
 - 移除窗口打开动画中的整体 blur，提升项目窗口清晰度。
+
+## v1.8.0 - 2026-07-13
+
+- 将 About Me 从简介卡升级为可纵向滚动的完整作品集页面。
+- 将项目详情页升级为 Creative Case Study 长页面，包含 Hero、Why、Problem & Goal、Solution Structure、Key Experience、UI Showcase、Design Notes、Reflection / Next。
+- 按随心而行、Star PM、竞品分析工作台、AI Companion / AI 宠物、IoT / 元井案例补充独立项目叙事。
+- 增加章节目录、滚动进度条、半立体主视觉、纸感章节和横向 UI Showcase。
+- 修稳项目星球点击链路，保持星图页只负责导航，详情页负责完整故事。
+- 增加 About 长页和 Creative Case Study 的自动化测试。

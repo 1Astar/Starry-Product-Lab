@@ -43,6 +43,33 @@ describe("Starry Product Lab OS", () => {
     );
   });
 
+  it("renders About Me as a scrollable portfolio page", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "打开 关于我" }));
+
+    expect(await screen.findByRole("heading", { name: "我不只写 PRD，也会把想法亲手做出来。" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "三种身份" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "关注方向" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "产品工作方式" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "工具与个人档案" })).toBeInTheDocument();
+  });
+
+  it("renders project files as creative case studies", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
+    fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 随心而行" }));
+
+    expect(await screen.findByRole("heading", { name: "随心而行" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Why / Context" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Problem & Goal" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Solution Structure" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Key Experience" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "UI Showcase" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Design Notes / Iterations" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Reflection / Next" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "下一个项目" })).toBeInTheDocument();
+  });
+
   it("renders Idea Inbox as notes with status and related projects", async () => {
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: "打开灵感收件箱" }));

@@ -161,6 +161,7 @@ export function ProjectGalaxy3D({
 }) {
   const canvasRef = useRef<HTMLDivElement | null>(null);
   const sceneObjects = useRef<Record<string, THREE.Group>>({});
+  const openingNodeRef = useRef<string | null>(null);
   const [webglReady, setWebglReady] = useState(false);
   const [launchingNode, setLaunchingNode] = useState<string | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
@@ -294,14 +295,20 @@ export function ProjectGalaxy3D({
   }, [visibleNodes]);
 
   const openNode = (node: GalaxyNode) => {
+    if (openingNodeRef.current) return;
+    openingNodeRef.current = node.id;
     if (!node.project) {
       onOpenIdeas();
+      window.setTimeout(() => {
+        openingNodeRef.current = null;
+      }, 260);
       return;
     }
     setLaunchingNode(node.id);
     window.setTimeout(() => {
       onOpenProject(node.project as Project);
       setLaunchingNode(null);
+      openingNodeRef.current = null;
     }, 260);
   };
 
@@ -316,22 +323,26 @@ export function ProjectGalaxy3D({
       <div className="galaxy-core-glow" aria-hidden="true" />
       {launchingNode ? <motion.span className={`project-comet comet-${launchingNode}`} initial={{ opacity: 0, scale: 0.4 }} animate={{ opacity: [0, 1, 0], scale: [0.4, 1.25, 0.2], x: [0, 42, 96], y: [0, -24, -62] }} transition={{ duration: 0.34 }} /> : null}
       {visibleNodes.map((node) => (
-        <motion.button
+        <button
           key={node.id}
           type="button"
           className={`galaxy-label ${node.kind} label-${node.id}`}
+          data-galaxy-node={node.id}
           aria-label={node.project ? `打开项目档案 ${node.label}` : `打开灵感收件箱 ${node.label}`}
-          whileHover={{ y: -5, rotate: node.kind === "idea" ? -1.5 : 1, scale: node.id === "follow-heart" ? 1.04 : 1.03 }}
           onMouseEnter={() => setHoveredNodeId(node.id)}
           onMouseLeave={() => setHoveredNodeId((current) => current === node.id ? null : current)}
           onFocus={() => setHoveredNodeId(node.id)}
           onBlur={() => setHoveredNodeId((current) => current === node.id ? null : current)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") openNode(node);
+          }}
+          onPointerDown={() => openNode(node)}
           onClick={() => openNode(node)}
         >
           <span><i />{node.label}</span>
           <small>{node.meta}</small>
           <b>{node.status}</b>
-        </motion.button>
+        </button>
       ))}
       {hoveredNode?.project ? (
         <motion.aside

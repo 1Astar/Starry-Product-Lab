@@ -174,7 +174,11 @@ function App() {
                 />
               ) : null}
               {activeApp === "projects" && selectedProject ? (
-                <ProjectFile project={selectedProject} onBack={() => setSelectedProjectId(null)} />
+                <ProjectFile
+                  project={selectedProject}
+                  onBack={() => setSelectedProjectId(null)}
+                  onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                />
               ) : null}
               {activeApp === "projects" && !selectedProject ? (
                 <ProjectUniverse
@@ -463,34 +467,313 @@ function ProjectPlanet({
   );
 }
 
-function ProjectFile({ project, onBack }: { project: Project; onBack: () => void }) {
+interface CaseStudyContent {
+  positioning: string;
+  audience: string;
+  context: string[];
+  problems: string[];
+  goals: string[];
+  structure: string[];
+  keyExperience: Array<{ title: string; text: string }>;
+  showcases: Array<{ title: string; text: string }>;
+  notes: string[];
+  reflection: string;
+}
+
+const fallbackCaseStudy: CaseStudyContent = {
+  positioning: "一个把想法落到真实世界里的产品实验。",
+  audience: "对产品结构、交互体验和可运行 Demo 感兴趣的访客。",
+  context: ["这个项目来自一个具体的体验摩擦：想法存在，但缺少一个能被真实使用的形态。", "我把它拆成定位、流程、界面和可验证 Demo，让它从灵感变成可展示的产品记录。"],
+  problems: ["想法容易停留在描述里，无法被用户理解。", "流程、状态和页面缺少统一结构。", "项目中断后上下文很难恢复。"],
+  goals: ["把核心体验做成可运行版本。", "让访客能看懂项目为什么存在。", "保留后续迭代入口。"],
+  structure: ["入口", "核心流程", "状态反馈", "结果沉淀"],
+  keyExperience: [
+    { title: "从问题开始", text: "先确认用户在什么场景下会需要它，而不是先堆功能。" },
+    { title: "拆成最小路径", text: "把体验压缩成可以快速验证的主路径，再逐步扩展支线。" },
+    { title: "保留迭代证据", text: "记录为什么改、改了什么和下一步要验证什么。" }
+  ],
+  showcases: [
+    { title: "主入口", text: "让用户一眼知道这个产品解决什么问题。" },
+    { title: "核心界面", text: "展示最能说明产品结构的一屏。" },
+    { title: "结果沉淀", text: "让使用行为能留下可回看的记录。" }
+  ],
+  notes: ["项目不是页面集合，而是一条可被理解的体验路径。", "展示时保留设计边界，不暴露不适合公开的信息。"],
+  reflection: "下一步会继续补充真实截图、交互说明和复盘材料。"
+};
+
+function getCaseStudy(project: Project): CaseStudyContent {
+  if (project.id === "follow-heart") {
+    return {
+      positioning: "随心而行，是一个把“占卜”从结果导向，变成“自我提问 + 仪式感交互 + 学习传统文化”的互动产品。",
+      audience: "喜欢塔罗、传统文化、自我探索，但不想只看一段生硬答案的新手用户。",
+      context: [
+        "我喜欢塔罗、小六壬、梅花易数，也一直对传统文化和“通过互动去学习”这件事很感兴趣。",
+        "我发现很多占卜产品只有“抽牌—出结果”，但缺少仪式感，也缺少真正帮助用户理解牌义、慢慢学会看的过程。",
+        "所以我想做一个更像“陪你占、陪你学、陪你看见自己”的产品。"
+      ],
+      problems: ["抽牌过程太机械，没有沉浸感", "结果页像说明书，不像陪伴式解读", "用户容易看答案，却不理解为什么是这个答案", "学习和占卜是断开的，抽牌不能自然带来积累", "传统文化内容门槛高，新手不敢入门"],
+      goals: ["用手势抽牌建立仪式感", "让结果页从单段答案变成分层阅读", "把学习嵌入每一次抽牌体验", "让图鉴和手札承接长期积累"],
+      structure: ["提出问题", "洗牌 / 切牌 / 抽牌", "结果页四层解读", "看懂牌面", "图鉴收集", "手札沉淀"],
+      keyExperience: [
+        { title: "手势抽牌", text: "洗牌、切牌、抽牌和放大看牌不是装饰，它们让用户先进入状态，再接受解读。" },
+        { title: "结果页分层", text: "牌面、解读、学习延伸和手札入口拆开呈现，避免把答案写成一坨长文。" },
+        { title: "图鉴系统", text: "抽到即收集，让每一次占问都顺手带来一点传统文化积累。" },
+        { title: "答案气质", text: "我希望它传达的是：答案不在牌里，在你心里，牌只是帮你提问。" }
+      ],
+      showcases: [
+        { title: "开场页", text: "提出问题，选择开始，把用户从日常状态带入一次占问。" },
+        { title: "洗牌页", text: "手势提示和牌背流动形成轻仪式感。" },
+        { title: "抽牌页", text: "卡牌悬浮、选牌动画和 fallback 共同保证可玩与可用。" },
+        { title: "结果页", text: "四个 Tab 分别承接看牌、解读、学习和记录。" },
+        { title: "图鉴 / 手札", text: "把一次性结果变成可积累的学习路径。" }
+      ],
+      notes: ["不做纯占卜工具，因为我更在意用户能不能通过它看见自己。", "学习不单独做成课程，而是嵌进结果页和图鉴里。", "后续可以扩展到小六壬、梅花易数、中医启蒙等传统文化模块。"],
+      reflection: "随心而行会继续围绕 P1 结果页优化，把“抽到答案”升级为“理解自己和理解文化”的过程。"
+    };
+  }
+  if (project.id === "star-pm") {
+    return {
+      positioning: "一个面向“容易开很多坑的自己”的项目恢复系统。",
+      audience: "同时推进多个项目、灵感很多但容易丢上下文的独立产品创造者。",
+      context: ["我经常同时有很多产品想法，也会同时推进几个项目。", "普通待办工具只能记录做什么，很难记录为什么想做、做到哪了、下次从哪里恢复，以及相关链接、本地路径和部署地址。", "所以我想做一个真正能帮我接住灵感、恢复项目现场的系统。"],
+      problems: ["灵感、任务、文档、链接、Git 更新分散", "项目放一阵子后，很难快速恢复上下文", "想法容易直接变坑，没有中间层", "项目进度记录和真实开发状态脱节"],
+      goals: ["接住灵感但不立刻开坑", "让项目恢复有上下文", "把 Git 更新变成进展证据", "把个人项目串成一个底层操作系统"],
+      structure: ["灵感收件箱", "项目恢复卡", "演进记录", "Git 更新同步", "本地启动 / Demo / 代码目录链接", "停车场机制"],
+      keyExperience: [
+        { title: "Idea 不等于 Task", text: "灵感先进入收件箱，经过判断后再进入项目，而不是一出现就变成待办压力。" },
+        { title: "项目恢复卡", text: "恢复卡记录为什么做、做到哪、下一步是什么，让中断后的项目能重新接上。" },
+        { title: "演进记录", text: "记录变化前、变化后和为什么改，因为“为什么改”比“改成什么”更值得被保存。" },
+        { title: "Git 更新面板", text: "把 commit 和部署状态接到项目进展里，让开发动作成为产品进展的一部分。" }
+      ],
+      showcases: [
+        { title: "Dashboard", text: "今日主线和暂时停靠一眼可见。" },
+        { title: "灵感收件箱", text: "快速接住想法，避免散落在聊天和备忘录里。" },
+        { title: "当前主线", text: "用恢复卡把上下文、链接和下一步放在同一处。" },
+        { title: "项目库", text: "阶段、状态、Demo、代码目录和分类统一管理。" },
+        { title: "演进记录", text: "用时间线保存每次变化的理由。" }
+      ],
+      notes: ["项目不是只看状态，更要保留上下文。", "停车场机制是为了保护注意力：灵感先入库，不准乱开坑。", "后续可以接入 AI Capture，让碎片输入自动沉淀成项目记录。"],
+      reflection: "现在它仍偏个人使用，下一步是统一信息结构，让它成为我所有项目的底层操作系统。"
+    };
+  }
+  if (project.id === "competitor-workbench") {
+    return {
+      positioning: "一个面向跨境 / 硬件立项场景的竞品分析工作台，把采集、清洗、拆解与输出串成一条链路。",
+      audience: "需要把大量竞品资料整理成立项判断材料的产品经理或研究者。",
+      context: ["竞品分析经常碎片化，数据来源杂、格式乱。", "真正耗时间的不是找资料，而是清洗、去重、统一、归档和输出。", "这个项目尝试把低效人工流程产品化。"],
+      problems: ["数据字段不统一", "截图、链接、参数和判断分散", "非竞品和重复数据难清理", "输出报告依赖人工重新整理"],
+      goals: ["把采集到输出串成流水线", "用 Schema 和列映射统一输入", "让 AI 补全服务于结构化判断", "输出 Excel / Markdown / 立项模板"],
+      structure: ["数据采集", "Schema 统一", "列映射", "去重 / 非竞品标注", "三表流水线", "AI 补全", "输出报告"],
+      keyExperience: [
+        { title: "采集", text: "先允许来源复杂，再通过后续结构把它们收束。" },
+        { title: "清洗", text: "字段映射、去重和非竞品标注是工具链的关键，不只是表格操作。" },
+        { title: "分析", text: "把参数、场景、定位和差异点拆成可比较维度。" },
+        { title: "输出", text: "让分析结果能直接进入 Excel、Markdown 或立项模板。" }
+      ],
+      showcases: [
+        { title: "数据导入页", text: "接住不同来源的原始资料。" },
+        { title: "字段映射页", text: "把乱字段映射到统一 Schema。" },
+        { title: "清洗标注页", text: "处理重复、非竞品和缺失信息。" },
+        { title: "洞察看板", text: "把复杂数据转成可判断材料。" },
+        { title: "输出报告", text: "把结果转成可复用文档。" }
+      ],
+      notes: ["重点不是页面好看，而是信息结构能力。", "这个项目展示的是复杂流程抽象和工具型产品思维。"],
+      reflection: "下一步会补充更多样本，让工具链从 Demo 走向更稳定的研究工作台。"
+    };
+  }
+  if (project.id === "ai-companion" || project.id === "ai-pet-hardware") {
+    return {
+      positioning: "AI 宠物陪伴系统：从功能控制走向状态、情绪和关系感的陪伴体验。",
+      audience: "需要在 App、小程序和硬件之间感受到陪伴反馈的 C 端用户。",
+      context: ["这个案例重点展示我对“陪伴”而不是“功能堆砌”的理解。", "AI 陪伴不只是聊天，还包括状态反馈、行为反馈、声音反馈和界面反馈。", "公司相关内容均做脱敏处理，只展示产品设计思路、流程和界面结构。"],
+      problems: ["只做控制会让宠物像设备，不像陪伴对象", "App 与小程序职责容易混在一起", "用户看不到宠物状态变化背后的情绪逻辑", "旧版本首页和状态页难以建立关系感"],
+      goals: ["建立宠物状态反馈机制", "优化首页 / 状态页 / 陪伴模式", "明确 App、小程序和设备控制关系", "用 Before / After 说明体验变化"],
+      structure: ["首页状态", "宠物状态页", "陪伴模式", "声音 / 行为反馈", "App + 小程序 + 设备关系", "脱敏展示边界"],
+      keyExperience: [
+        { title: "状态反馈", text: "让用户能看到宠物现在处于什么状态，而不是只看到功能按钮。" },
+        { title: "情绪交互", text: "把情绪矩阵、声音和动作拆成可解释的反馈机制。" },
+        { title: "跨端关系", text: "App 承接陪伴体验，小程序和设备控制承担轻入口和硬件动作。" },
+        { title: "版本优化", text: "通过 Before / After 展示从控制型界面到陪伴型界面的转变。" }
+      ],
+      showcases: [
+        { title: "旧版首页", text: "功能入口清楚，但陪伴感不强。" },
+        { title: "新版状态页", text: "突出宠物状态、情绪和反馈。" },
+        { title: "陪伴模式", text: "围绕专注、互动和反馈建立连续体验。" },
+        { title: "关系图", text: "展示 App、小程序、设备和状态反馈的职责边界。" }
+      ],
+      notes: ["不展示公司敏感数据、内部指标、完整后台逻辑或不能公开的功能细节。", "重点呈现我负责的产品机制、交互流程和状态反馈拆解。"],
+      reflection: "下一步可以继续补充脱敏 mockup 和前后版本对比，让陪伴体验的产品判断更直观。"
+    };
+  }
+  if (project.id === "iot-ops" || project.id === "yuanjing-miniapp") {
+    return {
+      positioning: "复杂控制与跨端界面案例：把设备、角色、任务和状态流转译成用户能理解的界面。",
+      audience: "需要在小程序、Web 后台或设备控制台中完成任务的运营、用户和后台角色。",
+      context: ["这类项目更适合放在工作案例分组，用清楚、专业的方式说明复杂系统如何被拆解。", "重点不是浪漫表达，而是角色、任务、权限、状态和跨端体验。", "案例均做脱敏展示，只保留信息架构和交互说明。"],
+      problems: ["复杂控制逻辑容易直接暴露给用户", "不同角色看到的任务和权限不同", "小程序、Web 和后台之间职责不清", "告警、任务和状态流缺少统一路径"],
+      goals: ["把复杂控制结构变成清晰界面", "明确角色任务和权限边界", "设计跨端体验关系", "沉淀可讲述的信息架构图"],
+      structure: ["角色任务", "控制台首页", "设备详情", "告警 / 任务 / 状态流", "小程序 / Web / 后台关系图"],
+      keyExperience: [
+        { title: "角色任务", text: "先区分谁在什么场景下要完成什么动作。" },
+        { title: "设备详情", text: "把技术状态翻译成用户能理解的下一步。" },
+        { title: "告警流程", text: "让异常、责任和处理入口在同一条链路上。" },
+        { title: "跨端关系", text: "小程序承接轻入口，Web 后台承接管理与追踪。" }
+      ],
+      showcases: [
+        { title: "信息架构图", text: "展示角色、页面和任务关系。" },
+        { title: "控制台首页", text: "聚合状态、风险和主任务。" },
+        { title: "设备详情", text: "展示状态、控制和历史记录。" },
+        { title: "告警 / 任务流", text: "把异常处理拆成可执行路径。" }
+      ],
+      notes: ["工作案例不展示真实业务数据、内部文档、源代码或未公开策略。", "重点展示我如何把复杂控制逻辑变成可理解界面。"],
+      reflection: "下一步会补充更多脱敏界面截图和流程图，让案例更适合面试演示。"
+    };
+  }
+  return fallbackCaseStudy;
+}
+
+function ProjectFile({
+  project,
+  onBack,
+  onNavigate
+}: {
+  project: Project;
+  onBack: () => void;
+  onNavigate: (projectId: string) => void;
+}) {
   const projectNumber = projects.findIndex((item) => item.id === project.id) + 1;
+  const caseStudy = getCaseStudy(project);
+  const previousProject = projects[(projectNumber + projects.length - 2) % projects.length];
+  const nextProject = projects[projectNumber % projects.length];
   return (
-    <div className="project-file">
+    <article className="project-file case-study-page">
+      <div className="case-progress" aria-hidden="true" />
       <button className="back-button" type="button" onClick={onBack}><ArrowLeft size={15} />返回星图</button>
-      <div className="file-cover">
-        <div>
-          <span>PROJECT FILE {String(projectNumber).padStart(2, "0")}</span>
+      <nav className="case-toc" aria-label="项目详情目录">
+        {["Hero", "Why", "Goal", "Structure", "Experience", "Showcase", "Notes", "Next"].map((item, index) => (
+          <a key={item} href={`#case-${index + 1}`}>{String(index + 1).padStart(2, "0")} {item}</a>
+        ))}
+      </nav>
+
+      <section className="case-hero" id="case-1">
+        <div className="case-hero-copy">
+          <span>CASE STUDY {String(projectNumber).padStart(2, "0")}</span>
+          <span className="legacy-project-file-label">PROJECT FILE {String(projectNumber).padStart(2, "0")}</span>
           <h2>{project.name}</h2>
-          <p>{project.type}</p>
+          <p>{caseStudy.positioning}</p>
+          <div className="case-tags">
+            <span>{project.type}</span><span>角色：{project.role}</span><span>{project.updatedAt}</span><span>{project.status}</span>
+          </div>
+          <div className="project-actions">
+            {project.actions.map((action) => <ProjectActionControl key={action.label} project={project} action={action} />)}
+          </div>
         </div>
-        <div className="file-image" style={{ backgroundImage: `url(${project.coverImage ?? "/assets/portfolio-reference.png"})` }}>
-          <span>{project.humanNote}</span>
+        <div className="case-hero-visual">
+          <div className="case-mockup" style={{ backgroundImage: `url(${project.coverImage ?? "/assets/portfolio-reference.png"})` }}>
+            <span>{project.humanNote}</span>
+          </div>
         </div>
-      </div>
-      <div className="archive-flow">
+      </section>
+
+      <div className="archive-flow case-overview">
         <ArchiveStep number="01" title="起点" text={project.archive.start} />
         <ArchiveStep number="02" title="迭代" text={project.archive.iteration} />
         <ArchiveStep number="03" title="当前" text={project.archive.current} />
         <ArchiveStep number="04" title="我的角色" text={project.role} />
       </div>
-      <div className="file-bottom">
-        <p><strong>{project.humanNote}</strong>{project.value}</p>
-        <div className="project-actions">
-          {project.actions.map((action) => <ProjectActionControl key={action.label} project={project} action={action} />)}
+
+      <section className="case-section case-dark" id="case-2">
+        <div className="case-section-label"><small>02</small><h3>Why / Context</h3></div>
+        <div className="case-section-body">
+          <p className="case-lead">{project.why}</p>
+          {caseStudy.context.map((text) => <p key={text}>{text}</p>)}
+          <div className="case-audience"><strong>用户是谁</strong><span>{caseStudy.audience}</span></div>
+          <CaseVisual title="Context Board" note={caseStudy.audience} coverImage={project.coverImage} />
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section className="case-section case-paper" id="case-3">
+        <div className="case-section-label"><small>03</small><h3>Problem & Goal</h3></div>
+        <div className="problem-goal-grid">
+          <div><h4>当前问题</h4>{caseStudy.problems.map((item) => <p key={item}>{item}</p>)}</div>
+          <div><h4>产品目标</h4>{caseStudy.goals.map((item) => <p key={item}>{item}</p>)}</div>
+        </div>
+        <CaseVisual title="Goal Signal" note={caseStudy.goals[0]} coverImage={project.coverImage} />
+      </section>
+
+      <section className="case-section case-dark structure-section" id="case-4">
+        <div className="case-section-label"><small>04</small><h3>Solution Structure</h3></div>
+        <div className="structure-map">
+          {caseStudy.structure.map((item, index) => (
+            <div key={item} className="structure-node">
+              <small>{String(index + 1).padStart(2, "0")}</small>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="case-section key-experience" id="case-5">
+        <div className="sticky-mockup">
+          <div className="case-mockup large" style={{ backgroundImage: `url(${project.coverImage ?? "/assets/portfolio-reference.png"})` }}>
+            <span>{project.name} / experience flow</span>
+          </div>
+        </div>
+        <div className="experience-copy">
+          <div className="case-section-label"><small>05</small><h3>Key Experience</h3></div>
+          {caseStudy.keyExperience.map((item, index) => (
+            <motion.article key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+              <small>{String(index + 1).padStart(2, "0")}</small>
+              <h4>{item.title}</h4>
+              <p>{item.text}</p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="case-section case-paper" id="case-6">
+        <div className="case-section-label"><small>06</small><h3>UI Showcase</h3></div>
+        <div className="showcase-rail">
+          {caseStudy.showcases.map((item, index) => (
+            <motion.article key={item.title} className="showcase-card" whileHover={{ y: -8, scale: 1.02 }}>
+              <div style={{ backgroundImage: `url(${project.coverImage ?? "/assets/portfolio-reference.png"})` }} />
+              <small>SCREEN {String(index + 1).padStart(2, "0")}</small>
+              <h4>{item.title}</h4>
+              <p>{item.text}</p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="case-section notes-section" id="case-7">
+        <div className="case-section-label"><small>07</small><h3>Design Notes / Iterations</h3></div>
+        <div className="note-fragments">
+          {caseStudy.notes.map((note, index) => <blockquote key={note} className={`fragment-${index + 1}`}>{note}</blockquote>)}
+        </div>
+      </section>
+
+      <section className="case-section reflection-section" id="case-8">
+        <div className="case-section-label"><small>08</small><h3>Reflection / Next</h3></div>
+        <div className="reflection-body">
+          <p>{caseStudy.reflection}</p>
+          <CaseVisual title="Next Orbit" note={project.next[0]} coverImage={project.coverImage} />
+          <div className="next-list">{project.next.map((item) => <span key={item}>{item}</span>)}</div>
+          <footer className="project-nav">
+            <button type="button" aria-label="上一个项目" onClick={() => onNavigate(previousProject.id)}><ArrowLeft size={15} />{previousProject.name}</button>
+            <button type="button" aria-label="下一个项目" onClick={() => onNavigate(nextProject.id)}>{nextProject.name}<ChevronRight size={15} /></button>
+          </footer>
+        </div>
+      </section>
+    </article>
+  );
+}
+
+function CaseVisual({ title, note, coverImage }: { title: string; note: string; coverImage?: string }) {
+  return (
+    <figure className="case-visual">
+      <div style={{ backgroundImage: `url(${coverImage ?? "/assets/portfolio-reference.png"})` }} />
+      <figcaption><small>{title}</small><span>{note}</span></figcaption>
+    </figure>
   );
 }
 
@@ -507,27 +790,90 @@ function ProjectActionControl({ project, action }: { project: Project; action: P
 }
 
 function IdentityProfile() {
+  const identities = [
+    { title: "产品结构者", text: "把零散需求变成清晰流程、状态和边界" },
+    { title: "体验观察者", text: "关注用户为什么迟疑、迷路和放弃" },
+    { title: "独立创造者", text: "用 AI、原型和代码快速验证想法" }
+  ];
+  const focusAreas = ["AI 陪伴与情绪体验", "C 端工具与复杂体验", "IoT 软硬件协同", "文化与学习产品"];
+  const workflow = ["观察场景", "发现问题", "梳理角色与流程", "设计最小验证方案", "制作原型或 Demo", "持续迭代"];
+  const tools = [
+    { title: "研究", items: ["竞品拆解", "用户场景", "访谈记录", "信息归档"] },
+    { title: "设计", items: ["Figma", "流程图", "交互原型", "界面结构"] },
+    { title: "AI 验证", items: ["ChatGPT", "Claude", "需求拆解", "内容生成"] },
+    { title: "开发部署", items: ["React", "TypeScript", "Vercel", "GitHub"] }
+  ];
+
   return (
-    <div className="identity-profile">
-      <aside className="identity-card">
-        <div className="avatar-mark"><CircleUserRound size={42} /></div>
-        <span>PROFILE / LX-YU</span>
-        <h2>刘星雨</h2>
-        <p>AI 产品经理<br />独立产品创造者</p>
-        <dl><div><dt>FOCUS</dt><dd>AI / C端 / IoT</dd></div><div><dt>MODE</dt><dd>Think · Build · Ship</dd></div></dl>
-      </aside>
-      <div className="profile-content">
-        <section><span>ABOUT ME</span><h2>我不只写 PRD，也会把想法亲手做出来。</h2><p>擅长把模糊想法变成产品结构，把复杂流程变成清晰体验，再用 AI 工具、原型和代码验证它是否真的成立。</p></section>
-        <section className="profile-timeline">
-          <h3>产品路径</h3>
-          <div><i /><span>发现问题</span><small>从用户与场景中找到真实摩擦</small></div>
-          <div><i /><span>拆解结构</span><small>明确角色、流程、状态与边界</small></div>
-          <div><i /><span>做出原型</span><small>让想法尽快进入可体验状态</small></div>
-          <div><i /><span>持续迭代</span><small>用反馈把产品从可用推向有意义</small></div>
-        </section>
-        <blockquote>我觉得人与产品之间应该有一种更温柔、更有意义的连接。</blockquote>
-      </div>
-    </div>
+    <article className="identity-profile about-page">
+      <section className="about-hero">
+        <div>
+          <span>PROFILE / LIU XINGYU</span>
+          <h2>我不只写 PRD，也会把想法亲手做出来。</h2>
+          <p>我是刘星雨，一名偏 C 端体验与 AI 应用的产品经理，也是一名会亲手把想法做成 Demo 的独立产品创造者。</p>
+          <p>我喜欢从生活中捕捉还没有被好好解决的问题，把模糊念头拆成产品结构、交互流程和可运行体验。</p>
+          <p>对我来说，产品应该让复杂的事情变得自然，让人与技术之间产生更温柔、更有意义的连接。</p>
+        </div>
+        <aside className="identity-card">
+          <div className="avatar-mark"><CircleUserRound size={42} /></div>
+          <h3>刘星雨</h3>
+          <p>AI 产品经理 / 独立产品创造者</p>
+          <dl><div><dt>FOCUS</dt><dd>AI / C端 / IoT</dd></div><div><dt>MODE</dt><dd>Think · Build · Ship</dd></div></dl>
+        </aside>
+      </section>
+
+      <section className="about-section identity-modes">
+        <span>01 / ROLES</span>
+        <h2>三种身份</h2>
+        <div className="identity-mode-grid">
+          {identities.map((item) => (
+            <article key={item.title}>
+              <Sparkles size={18} />
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="about-section focus-section">
+        <span>02 / FOCUS</span>
+        <h2>关注方向</h2>
+        <div className="focus-orbits">
+          {focusAreas.map((item, index) => <span key={item} className={`focus-${index + 1}`}>{item}</span>)}
+        </div>
+      </section>
+
+      <section className="about-section workflow-section">
+        <span>03 / HOW I WORK</span>
+        <h2>产品工作方式</h2>
+        <div className="workflow-line">
+          {workflow.map((item, index) => (
+            <div key={item}>
+              <small>{String(index + 1).padStart(2, "0")}</small>
+              <strong>{item}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="about-section tools-section">
+        <span>04 / TOOLKIT</span>
+        <h2>工具与个人档案</h2>
+        <div className="tool-grid">
+          {tools.map((group) => (
+            <article key={group.title}>
+              <h3>{group.title}</h3>
+              {group.items.map((item) => <span key={item}>{item}</span>)}
+            </article>
+          ))}
+        </div>
+        <div className="personal-file">
+          <p>小档案：喜欢星星、塔罗、AI 工具和把灵感做成别人能使用的产品。</p>
+          <a href="mailto:contact@example.com"><Mail size={15} />联系我</a>
+        </div>
+      </section>
+    </article>
   );
 }
 
