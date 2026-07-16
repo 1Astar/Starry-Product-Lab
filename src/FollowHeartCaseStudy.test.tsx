@@ -48,4 +48,11 @@ describe("FollowHeartCaseStudy", () => {
     fireEvent.click(screen.getByRole("button", { name: "查看下一个项目：Star PM" }));
     expect(onNavigate).toHaveBeenCalledWith("star-pm");
   });
+
+  it("scopes its styling to the follow-heart case page", () => {
+    const { container } = render(<FollowHeartCaseStudy onBack={vi.fn()} onNavigate={vi.fn()} />);
+
+    expect(container.querySelector(".follow-heart-case")).toBeInTheDocument();
+    expect(container.querySelector(".case-study-page")).not.toBeInTheDocument();
+  });
 });
