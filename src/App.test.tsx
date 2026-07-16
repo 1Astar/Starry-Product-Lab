@@ -33,11 +33,10 @@ describe("Starry Product Lab OS", () => {
     fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
     fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 随心而行" }));
 
-    expect(await screen.findByText("PROJECT FILE 01")).toBeInTheDocument();
-    expect(screen.getByText("想做一个隔空抽牌的小实验")).toBeInTheDocument();
-    expect(screen.getByText("P1 结果页优化")).toBeInTheDocument();
-    expect(screen.getByText("产品设计 / 交互 / 独立开发")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "随心而行 体验 Demo" })).toHaveAttribute(
+    expect(await screen.findByText("CASE STUDY 01 · 2026")).toBeInTheDocument();
+    expect(screen.getByText("用一次有仪式感的占问，慢慢看懂牌，也慢慢看见自己。")).toBeInTheDocument();
+    expect(screen.getByText("P1 迭代中")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "体验 Demo" })).toHaveAttribute(
       "href",
       "https://mystic-lab-sigma.vercel.app/"
     );
@@ -59,15 +58,13 @@ describe("Starry Product Lab OS", () => {
     fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
     fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 随心而行" }));
 
-    expect(await screen.findByRole("heading", { name: "随心而行" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Why / Context" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Problem & Goal" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Solution Structure" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Key Experience" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "UI Showcase" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Design Notes / Iterations" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Reflection / Next" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "下一个项目" })).toBeInTheDocument();
+    expect(await screen.findByText("CASE STUDY 01 · 2026")).toBeInTheDocument();
+    expect(screen.getByText("塔罗 Tarot")).toBeInTheDocument();
+    expect(screen.getByText("小六壬")).toBeInTheDocument();
+    expect(screen.getByText("梅花易数")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "我为什么会做它？" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "一次占问，是一条完整的体验链路" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "查看下一个项目：Star PM" })).toBeInTheDocument();
   });
 
   it("renders Idea Inbox as notes with status and related projects", async () => {

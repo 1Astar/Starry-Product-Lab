@@ -35,6 +35,8 @@ import { appFeedback, bootLines, displayStatement, ideas, projects } from "./dat
 import { runTerminalCommand } from "./terminal";
 import { DesktopPets } from "./DesktopPets";
 import { ProjectGalaxy3D } from "./ProjectGalaxy3D";
+import { FollowHeartCaseStudy } from "./FollowHeartCaseStudyView";
+import { getProjectVisuals } from "./projectVisuals";
 import type { Project, ProjectAction, WindowId } from "./types";
 
 type AppId = WindowId;
@@ -174,11 +176,18 @@ function App() {
                 />
               ) : null}
               {activeApp === "projects" && selectedProject ? (
-                <ProjectFile
-                  project={selectedProject}
-                  onBack={() => setSelectedProjectId(null)}
-                  onNavigate={(projectId) => setSelectedProjectId(projectId)}
-                />
+                selectedProject.id === "follow-heart" ? (
+                  <FollowHeartCaseStudy
+                    onBack={() => setSelectedProjectId(null)}
+                    onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                  />
+                ) : (
+                  <ProjectFile
+                    project={selectedProject}
+                    onBack={() => setSelectedProjectId(null)}
+                    onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                  />
+                )
               ) : null}
               {activeApp === "projects" && !selectedProject ? (
                 <ProjectUniverse
@@ -607,26 +616,34 @@ function getCaseStudy(project: Project): CaseStudyContent {
   }
   if (project.id === "iot-ops" || project.id === "yuanjing-miniapp") {
     return {
-      positioning: "复杂控制与跨端界面案例：把设备、角色、任务和状态流转译成用户能理解的界面。",
-      audience: "需要在小程序、Web 后台或设备控制台中完成任务的运营、用户和后台角色。",
-      context: ["这类项目更适合放在工作案例分组，用清楚、专业的方式说明复杂系统如何被拆解。", "重点不是浪漫表达，而是角色、任务、权限、状态和跨端体验。", "案例均做脱敏展示，只保留信息架构和交互说明。"],
-      problems: ["复杂控制逻辑容易直接暴露给用户", "不同角色看到的任务和权限不同", "小程序、Web 和后台之间职责不清", "告警、任务和状态流缺少统一路径"],
-      goals: ["把复杂控制结构变成清晰界面", "明确角色任务和权限边界", "设计跨端体验关系", "沉淀可讲述的信息架构图"],
-      structure: ["角色任务", "控制台首页", "设备详情", "告警 / 任务 / 状态流", "小程序 / Web / 后台关系图"],
+      positioning: "工业水泵智能控制与运维平台：从设备控制工具升级为面向工业水泵运营的 IoT 管理平台，完成用户权限、设备生命周期、远程控制及售后闭环设计。",
+      audience: "水泵设备主用户、子用户、经销商、平台管理员，以及负责售后维护的服务人员。",
+      context: [
+        "针对经销商无法管理设备、转交场景复杂、售后人员权限不足等问题，我基于已有水泵控制器硬件能力，规划自主化智能控制与运维平台。",
+        "这个项目的核心不是强调 AI，而是把硬件控制能力产品化，形成设备远程管理、运行监测、权限协同和售后闭环。",
+        "页面展示均做脱敏处理，重点呈现业务流程、用户体系、移动端工作台和 Web 后台规划。"
+      ],
+      problems: ["经销商无法管理设备", "设备转交场景复杂，归属关系容易混乱", "售后人员权限不足，难以及时介入", "工业设备故障处理链路长，异常发现、任务分配、处理反馈和关闭缺少统一闭环"],
+      goals: ["从客户定制项目沉淀为自主智能设备管理平台", "以设备为核心资产，建立设备 → 主用户 → 子用户 → 经销商的关系模型", "实现实时监测、远程启停、档位调整和参数控制", "搭建设备异常到工单关闭的售后服务闭环", "覆盖生产 → 部署 → 使用 → 维护的全生命周期管理"],
+      structure: ["设备层", "数据采集层", "控制服务层", "用户端 / 管理后台", "售后服务"],
       keyExperience: [
-        { title: "角色任务", text: "先区分谁在什么场景下要完成什么动作。" },
-        { title: "设备详情", text: "把技术状态翻译成用户能理解的下一步。" },
-        { title: "告警流程", text: "让异常、责任和处理入口在同一条链路上。" },
-        { title: "跨端关系", text: "小程序承接轻入口，Web 后台承接管理与追踪。" }
+        { title: "为什么设计多角色权限", text: "工业设备不是单人使用场景，需要同时处理主用户控制权、子用户协作、经销商管理设备和售后人员介入权限。" },
+        { title: "为什么重构扫码归属", text: "设备绑定、解绑、转交流程决定了资产归属是否清晰；扫码绑定不能只追求快，还要避免交付后管理混乱。" },
+        { title: "为什么设计工单闭环", text: "针对工业设备故障处理链路长的问题，设计从异常发现、任务分配、处理反馈到关闭的售后闭环。" },
+        { title: "为什么规划后台管理", text: "型号配置、SN 码生成、固件管理、用户管理、经销商管理和工单管理共同支撑设备从生产到运营的生命周期。" }
       ],
       showcases: [
-        { title: "信息架构图", text: "展示角色、页面和任务关系。" },
-        { title: "控制台首页", text: "聚合状态、风险和主任务。" },
-        { title: "设备详情", text: "展示状态、控制和历史记录。" },
-        { title: "告警 / 任务流", text: "把异常处理拆成可执行路径。" }
+        { title: "01 标题 + 产品截图", text: "工业水泵智能控制与运维平台，从单一设备控制升级为设备运营管理系统。" },
+        { title: "02 痛点", text: "经销商无法管理设备、转交场景复杂、售后人员权限不足，是平台化前最核心的问题。" },
+        { title: "03 产品架构图", text: "设备层 → 数据采集层 → 控制服务层 → 用户端 / 管理后台 → 售后服务。" },
+        { title: "04 三个产品决策", text: "多角色权限、扫码归属重构和工单闭环，是这套平台从控制工具变成运营系统的关键。" }
       ],
-      notes: ["工作案例不展示真实业务数据、内部文档、源代码或未公开策略。", "重点展示我如何把复杂控制逻辑变成可理解界面。"],
-      reflection: "下一步会补充更多脱敏界面截图和流程图，让案例更适合面试演示。"
+      notes: [
+        "我的职责：产品规划 & 交互设计，梳理业务流程、信息架构、设备关系模型、扫码归属、运行监控、远程控制和工单闭环，并输出 Axure / 原型方案推动 1.0 落地。",
+        "工业 IoT 产品的核心不是单纯实现远程控制，而是围绕设备资产管理、用户关系管理和售后服务闭环构建持续运营能力。",
+        "后续可以结合运行数据引入异常预测、能耗优化和智能调控，但这一版重点先讲清 IoT 产品化。"
+      ],
+      reflection: "这类项目最能证明我处理复杂系统的能力：先把设备、角色、权限、状态和服务链路拆清楚，再把技术控制能力翻译成用户和后台都能理解的产品流程。"
     };
   }
   return fallbackCaseStudy;
@@ -643,6 +660,8 @@ function ProjectFile({
 }) {
   const projectNumber = projects.findIndex((item) => item.id === project.id) + 1;
   const caseStudy = getCaseStudy(project);
+  const caseVisuals = getProjectVisuals(project.id, project.coverImage);
+  const primaryVisual = caseVisuals[0];
   const previousProject = projects[(projectNumber + projects.length - 2) % projects.length];
   const nextProject = projects[projectNumber % projects.length];
   return (
@@ -669,7 +688,7 @@ function ProjectFile({
           </div>
         </div>
         <div className="case-hero-visual">
-          <div className="case-mockup" style={{ backgroundImage: `url(${project.coverImage ?? "/assets/portfolio-reference.png"})` }}>
+          <div className="case-mockup" style={{ backgroundImage: `url(${primaryVisual})` }}>
             <span>{project.humanNote}</span>
           </div>
         </div>
@@ -688,7 +707,7 @@ function ProjectFile({
           <p className="case-lead">{project.why}</p>
           {caseStudy.context.map((text) => <p key={text}>{text}</p>)}
           <div className="case-audience"><strong>用户是谁</strong><span>{caseStudy.audience}</span></div>
-          <CaseVisual title="Context Board" note={caseStudy.audience} coverImage={project.coverImage} />
+          <CaseVisual title="Context Board" note={caseStudy.audience} coverImage={primaryVisual} />
         </div>
       </section>
 
@@ -698,7 +717,7 @@ function ProjectFile({
           <div><h4>当前问题</h4>{caseStudy.problems.map((item) => <p key={item}>{item}</p>)}</div>
           <div><h4>产品目标</h4>{caseStudy.goals.map((item) => <p key={item}>{item}</p>)}</div>
         </div>
-        <CaseVisual title="Goal Signal" note={caseStudy.goals[0]} coverImage={project.coverImage} />
+        <CaseVisual title="Goal Signal" note={caseStudy.goals[0]} coverImage={primaryVisual} />
       </section>
 
       <section className="case-section case-dark structure-section" id="case-4">
@@ -715,7 +734,7 @@ function ProjectFile({
 
       <section className="case-section key-experience" id="case-5">
         <div className="sticky-mockup">
-          <div className="case-mockup large" style={{ backgroundImage: `url(${project.coverImage ?? "/assets/portfolio-reference.png"})` }}>
+          <div className="case-mockup large" style={{ backgroundImage: `url(${primaryVisual})` }}>
             <span>{project.name} / experience flow</span>
           </div>
         </div>
@@ -736,7 +755,7 @@ function ProjectFile({
         <div className="showcase-rail">
           {caseStudy.showcases.map((item, index) => (
             <motion.article key={item.title} className="showcase-card" whileHover={{ y: -8, scale: 1.02 }}>
-              <div style={{ backgroundImage: `url(${project.coverImage ?? "/assets/portfolio-reference.png"})` }} />
+              <div style={{ backgroundImage: `url(${caseVisuals[index % caseVisuals.length]})` }} />
               <small>SCREEN {String(index + 1).padStart(2, "0")}</small>
               <h4>{item.title}</h4>
               <p>{item.text}</p>
@@ -756,7 +775,7 @@ function ProjectFile({
         <div className="case-section-label"><small>08</small><h3>Reflection / Next</h3></div>
         <div className="reflection-body">
           <p>{caseStudy.reflection}</p>
-          <CaseVisual title="Next Orbit" note={project.next[0]} coverImage={project.coverImage} />
+          <CaseVisual title="Next Orbit" note={project.next[0]} coverImage={primaryVisual} />
           <div className="next-list">{project.next.map((item) => <span key={item}>{item}</span>)}</div>
           <footer className="project-nav">
             <button type="button" aria-label="上一个项目" onClick={() => onNavigate(previousProject.id)}><ArrowLeft size={15} />{previousProject.name}</button>
