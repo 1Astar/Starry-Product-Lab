@@ -139,6 +139,27 @@ export function FollowHeartCaseStudy({ onBack, onNavigate }: FollowHeartCaseStud
 
       <section className="follow-heart-section follow-heart-dark" id="follow-solution">
         <SectionLabel label="04" title="一次占问，是一条完整的体验链路" />
+        <div className="follow-heart-experience-model">
+          <div className="follow-heart-model-intro">
+            <h3>{data.experienceModel.title}</h3>
+            <p>{data.experienceModel.summary}</p>
+            <strong>{data.experienceModel.flow.join(" → ")}</strong>
+          </div>
+          <div className="follow-heart-model-layers">
+            {data.experienceModel.layers.map((layer) => (
+              <article key={layer.title}>
+                <h3>{layer.title}</h3>
+                <blockquote>“{layer.userQuote}”</blockquote>
+                <p>{layer.entry}</p>
+                <div>
+                  {layer.examples.map((example) => (
+                    <span key={example}>{example}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
         <div className="follow-heart-orbit">
           {data.solutionNodes.map((node, index) => (
             <button

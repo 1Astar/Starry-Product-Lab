@@ -18,6 +18,11 @@ describe("FollowHeartCaseStudy", () => {
     expect(screen.getByRole("heading", { name: "我为什么会做它？" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "现有体验的问题" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "一次占问，是一条完整的体验链路" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Mystic Lab 的三层体验模型" })).toBeInTheDocument();
+    expect(screen.getByText("问题 → 仪式 → 答案 → 理解 → 成长")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "第一层：即时体验" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "第二层：仪式体验" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "第三层：成长体验" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Key Experience" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "UI Showcase" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "它不是一开始就叫“随心而行”" })).toBeInTheDocument();

@@ -6,6 +6,12 @@ describe("followHeartCaseStudy", () => {
     expect(followHeartCaseStudy.title).toBe("随心而行");
     expect(followHeartCaseStudy.scope.primary).toBe("塔罗 Tarot");
     expect(followHeartCaseStudy.scope.parallel).toEqual(["小六壬", "梅花易数"]);
+    expect(followHeartCaseStudy.experienceModel.flow).toEqual(["问题", "仪式", "答案", "理解", "成长"]);
+    expect(followHeartCaseStudy.experienceModel.layers.map((layer) => layer.title)).toEqual([
+      "第一层：即时体验",
+      "第二层：仪式体验",
+      "第三层：成长体验"
+    ]);
     expect(followHeartCaseStudy.sections.map((section) => section.id)).toEqual([
       "hero",
       "why",

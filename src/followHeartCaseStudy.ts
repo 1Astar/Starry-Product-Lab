@@ -10,6 +10,13 @@ export interface FollowHeartVisual {
   image: string;
 }
 
+export interface FollowHeartExperienceLayer {
+  title: string;
+  userQuote: string;
+  entry: string;
+  examples: string[];
+}
+
 export interface FollowHeartCaseStudyData {
   title: string;
   eyebrow: string;
@@ -33,6 +40,12 @@ export interface FollowHeartCaseStudyData {
   problems: string[];
   goals: string[];
   beforeAfter: Array<{ before: string; after: string }>;
+  experienceModel: {
+    title: string;
+    summary: string;
+    flow: string[];
+    layers: FollowHeartExperienceLayer[];
+  };
   solutionNodes: Array<{ title: string; text: string; image: string }>;
   comic: Array<{ title: string; text: string }>;
   experiences: Array<{ title: string; text: string; image: string }>;
@@ -98,6 +111,31 @@ export const followHeartCaseStudy: FollowHeartCaseStudyData = {
     { before: "点击随机抽牌", after: "主动完成一次仪式" },
     { before: "一次性长文本", after: "分层理解与自我提问" }
   ],
+  experienceModel: {
+    title: "Mystic Lab 的三层体验模型",
+    summary: "随心而行不只是一个塔罗入口，而是 Mystic Lab 里第一个完整体验样本：让用户从一个问题进入，通过仪式得到反馈，再在理解中慢慢成长。",
+    flow: ["问题", "仪式", "答案", "理解", "成长"],
+    layers: [
+      {
+        title: "第一层：即时体验",
+        userQuote: "我有一个问题。",
+        entry: "进入塔罗 / 小六壬，快速得到一次可理解的反馈。",
+        examples: ["塔罗抽牌", "小六壬起课", "此刻解读"]
+      },
+      {
+        title: "第二层：仪式体验",
+        userQuote: "我要经历这个过程。",
+        entry: "把占问从结果按钮，变成一段可以被感知的身体与时间流程。",
+        examples: ["洗牌", "切牌", "翻黄历", "掐指起课"]
+      },
+      {
+        title: "第三层：成长体验",
+        userQuote: "我想慢慢学会。",
+        entry: "让每次占问沉淀为可复盘的知识与个人记录。",
+        examples: ["图鉴", "愚人之旅", "掌上演算之旅"]
+      }
+    ]
+  },
   solutionNodes: [
     { title: "选择占问方式", text: "塔罗、小六壬、梅花易数从同一个 Mystic Lab 入口进入。", image: "/assets/case-studies/follow-heart/system-entry.png" },
     { title: "写下问题", text: "用自己的语言描述此刻真正关心的事。", image: "/assets/case-studies/follow-heart/question-input.png" },

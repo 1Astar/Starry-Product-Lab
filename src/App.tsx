@@ -36,6 +36,11 @@ import { runTerminalCommand } from "./terminal";
 import { DesktopPets } from "./DesktopPets";
 import { ProjectGalaxy3D } from "./ProjectGalaxy3D";
 import { FollowHeartCaseStudy } from "./FollowHeartCaseStudyView";
+import { CompetitiveAnalysisCaseStudy } from "./CompetitiveAnalysisCaseStudyView";
+import { JobRadarCaseStudy } from "./JobRadarCaseStudyView";
+import { PhoneCompanionCaseStudy } from "./PhoneCompanionCaseStudyView";
+import { NoddyCaseStudy } from "./NoddyCaseStudyView";
+import { AIControllerCaseStudy } from "./AIControllerCaseStudyView";
 import { getProjectVisuals } from "./projectVisuals";
 import type { Project, ProjectAction, WindowId } from "./types";
 
@@ -101,6 +106,7 @@ function App() {
     () => projects.find((project) => project.id === selectedProjectId) ?? null,
     [selectedProjectId]
   );
+  const isJobRadarSelected = selectedProjectId === "job-radar";
 
   useEffect(() => {
     window.localStorage.setItem("starry-pet-mode", petMode ? "on" : "off");
@@ -175,9 +181,35 @@ function App() {
                   onIdeas={() => openApp("inbox", "welcome-action")}
                 />
               ) : null}
+              {activeApp === "projects" && isJobRadarSelected ? (
+                <JobRadarCaseStudy
+                  onBack={() => setSelectedProjectId(null)}
+                  onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                />
+              ) : null}
               {activeApp === "projects" && selectedProject ? (
                 selectedProject.id === "follow-heart" ? (
                   <FollowHeartCaseStudy
+                    onBack={() => setSelectedProjectId(null)}
+                    onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                  />
+                ) : selectedProject.id === "competitor-workbench" ? (
+                  <CompetitiveAnalysisCaseStudy
+                    onBack={() => setSelectedProjectId(null)}
+                    onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                  />
+                ) : selectedProject.id === "ai-companion" ? (
+                  <PhoneCompanionCaseStudy
+                    onBack={() => setSelectedProjectId(null)}
+                    onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                  />
+                ) : selectedProject.id === "ai-pet-hardware" ? (
+                  <NoddyCaseStudy
+                    onBack={() => setSelectedProjectId(null)}
+                    onNavigate={(projectId) => setSelectedProjectId(projectId)}
+                  />
+                ) : selectedProject.id === "iot-ops" ? (
+                  <AIControllerCaseStudy
                     onBack={() => setSelectedProjectId(null)}
                     onNavigate={(projectId) => setSelectedProjectId(projectId)}
                   />
@@ -189,7 +221,7 @@ function App() {
                   />
                 )
               ) : null}
-              {activeApp === "projects" && !selectedProject ? (
+              {activeApp === "projects" && !selectedProject && !isJobRadarSelected ? (
                 <ProjectUniverse
                   onOpenProject={(project) => setSelectedProjectId(project.id)}
                   onOpenIdeas={() => openApp("inbox", "projects")}

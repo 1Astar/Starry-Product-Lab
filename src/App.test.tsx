@@ -67,6 +67,61 @@ describe("Starry Product Lab OS", () => {
     expect(screen.getByRole("button", { name: "查看下一个项目：Star PM" })).toBeInTheDocument();
   });
 
+  it("opens AI pet hardware as the Noddy dedicated case study", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
+    fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 AI 宠物" }));
+
+    expect(await screen.findByText("CASE STUDY 02 · 2026")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "AI 宠物 / Noddy" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "一次陪伴，不是一句回复，而是一条完整的状态链路" })).toBeInTheDocument();
+    expect(screen.queryByText("PROJECT FILE 05")).not.toBeInTheDocument();
+  });
+
+  it("opens AI Companion as the small phone Idea Lab case study", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
+    fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 AI Companion" }));
+
+    expect(await screen.findByText("CASE STUDY 02 · IDEA LAB · 2026")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "AI 陪伴小手机" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "一台小手机，装下的是关系的连续性" })).toBeInTheDocument();
+    expect(screen.queryByText("PROJECT FILE 03")).not.toBeInTheDocument();
+  });
+
+  it("opens competitive analysis as the product tool case study", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
+    fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 竞品分析" }));
+
+    expect(await screen.findByText("CASE STUDY 03 · PRODUCT TOOL · 2026")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "竞品分析工作台" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "从散乱资料到产品判断，是一条工作流" })).toBeInTheDocument();
+    expect(screen.queryByText("PROJECT FILE 02")).not.toBeInTheDocument();
+  });
+
+  it("opens Job Radar from the competitive analysis next idea action", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
+    fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 竞品分析" }));
+    fireEvent.click(await screen.findByRole("button", { name: "查看下一个 Idea：Job Radar" }));
+
+    expect(await screen.findByText("CASE STUDY 04 · IDEA LAB · 2026")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Job Radar" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "一次投递判断，是一条从页面到决策的链路" })).toBeInTheDocument();
+  });
+
+  it("opens IoT operations as the AI controller dedicated case study", async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "探索项目宇宙" }));
+    fireEvent.click(await screen.findByRole("button", { name: "打开项目档案 IoT" }));
+
+    expect(await screen.findByText("CASE STUDY 04 · 2026")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "AI 控制器 / 智能水泵控制系统" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "一台设备接入后，真正要管理的是整条运行链路" })).toBeInTheDocument();
+    expect(screen.queryByText("PROJECT FILE 06")).not.toBeInTheDocument();
+  });
+
   it("renders Idea Inbox as notes with status and related projects", async () => {
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: "打开灵感收件箱" }));
