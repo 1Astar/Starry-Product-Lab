@@ -82,7 +82,7 @@ export function PhoneCompanionCaseStudy({ onBack, onNavigate }: PhoneCompanionCa
         <div className="phone-life-map">
           <div className="phone-core">
             <PhoneDeviceMini />
-            <strong>Chris</strong>
+            <strong>AI Pal</strong>
             <span>status first</span>
           </div>
           <div className="phone-flow">
@@ -205,7 +205,12 @@ function PhonePoster({ note }: { note: string }) {
     <figure className="phone-poster">
       <div className="phone-desk-note lyric">今晚的歌单<br /><small>soft signal</small></div>
       <div className="phone-desk-note calendar">Thu<br /><strong>quiet day</strong></div>
-      <div className="phone-desk-note message">Chris 刚刚亮了一下</div>
+      <div className="phone-desk-note message">小手机刚刚亮了一下</div>
+      <img
+        className="phone-case-screenshot"
+        src="/assets/case-studies/phone-companion/home-masked.png"
+        alt="AI 陪伴小手机首页截图（已脱敏）"
+      />
       <PhoneDeviceMockup />
       <figcaption>{note}</figcaption>
     </figure>
@@ -217,10 +222,10 @@ function PhoneDeviceMockup() {
     <div className="phone-device">
       <div className="phone-speaker" />
       <header>
-        <span>Chris</span>
+        <span>AI Pal</span>
         <small>energy 62%</small>
       </header>
-      <section className="chris-state">
+      <section className="phone-pal-state">
         <i />
         <h3>今天有点安静</h3>
         <p>刚刚整理了你昨天听过的歌。</p>
@@ -234,7 +239,7 @@ function PhoneDeviceMockup() {
         <span>心情日历</span>
         <span>小纸条</span>
         <span>记忆碎片</span>
-        <span>Chris 日程</span>
+        <span>轻量日程</span>
       </div>
     </div>
   );

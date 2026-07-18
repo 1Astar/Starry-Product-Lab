@@ -208,6 +208,11 @@ function ListBlock({ title, items }: { title: string; items: string[] }) {
 function ResearchDesk({ note }: { note: string }) {
   return (
     <figure className="analysis-desk">
+      <img
+        className="analysis-case-screenshot"
+        src="/assets/case-studies/competitive-analysis/workbench-demo-masked.png"
+        alt="竞品分析工作台 Demo 截图（已脱敏）"
+      />
       <div className="desk-paper excel">Excel<br /><small>历史表</small></div>
       <div className="desk-paper product">商品卡<br /><small>price / sales</small></div>
       <div className="desk-paper return">退货单<br /><small>Top reasons</small></div>

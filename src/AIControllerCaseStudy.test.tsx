@@ -13,6 +13,10 @@ describe("AIControllerCaseStudy", () => {
     expect(screen.getByRole("heading", { name: "一台设备接入后，真正要管理的是整条运行链路" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "它不是一个控制按钮项目" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "这个项目让我重新理解了 B 端产品的“可靠”" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "智能水泵小程序状态看板原型图（已脱敏）" })).toHaveAttribute(
+      "src",
+      "/assets/case-studies/ai-controller/dashboard-masked.png"
+    );
   });
 
   it("routes back and next project actions", () => {

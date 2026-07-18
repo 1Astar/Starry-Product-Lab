@@ -267,7 +267,10 @@ function TopBar({ onOpen }: { onOpen: (id: AppId) => void }) {
   return (
     <header className="top-bar">
       <div className="top-menu">
-        <Star size={16} fill="currentColor" />
+        <span className="lab-brand-icon" role="img" aria-label="Starry Product Lab 图标">
+          <Star size={14} fill="currentColor" />
+          <Orbit size={17} />
+        </span>
         <strong>Starry Product Lab</strong>
         <button type="button">File</button>
         <button type="button">Edit</button>

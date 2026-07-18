@@ -17,7 +17,7 @@ describe("phoneCompanionCaseStudy", () => {
     ]);
     expect(phoneCompanionCaseStudy.solution.flow).toEqual([
       "用户此刻状态",
-      "Chris 状态感知",
+      "AI 小伙伴状态感知",
       "陪伴入口",
       "关系沉淀",
       "下一次回应更有上下文"

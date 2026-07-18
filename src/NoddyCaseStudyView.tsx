@@ -194,6 +194,11 @@ function ListBlock({ title, items }: { title: string; items: string[] }) {
 function CompanionLab({ note }: { note: string }) {
   return (
     <figure className="noddy-lab">
+      <img
+        className="noddy-case-screenshot"
+        src="/assets/case-studies/noddy/home-masked.png"
+        alt="Noddy 陪伴首页原型图（已脱敏）"
+      />
       <div className="noddy-pet" aria-hidden="true">
         <span className="ear left" />
         <span className="ear right" />

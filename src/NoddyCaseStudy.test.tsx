@@ -13,6 +13,10 @@ describe("NoddyCaseStudy", () => {
     expect(screen.getByRole("heading", { name: "一次陪伴，不是一句回复，而是一条完整的状态链路" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "它不是一开始就“像活的”" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "这个项目让我重新理解了“陪伴感”" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Noddy 陪伴首页原型图（已脱敏）" })).toHaveAttribute(
+      "src",
+      "/assets/case-studies/noddy/home-masked.png"
+    );
   });
 
   it("routes back and next project actions", () => {

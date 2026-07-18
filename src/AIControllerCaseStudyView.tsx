@@ -200,6 +200,11 @@ function ListBlock({ title, items }: { title: string; items: string[] }) {
 function ControlPoster({ note }: { note: string }) {
   return (
     <figure className="controller-poster">
+      <img
+        className="controller-case-screenshot"
+        src="/assets/case-studies/ai-controller/dashboard-masked.png"
+        alt="智能水泵小程序状态看板原型图（已脱敏）"
+      />
       <div className="pump-body"><i /><span>pump</span></div>
       <div className="controller-chip">AI<br />CTRL</div>
       <div className="cloud-node">云平台</div>

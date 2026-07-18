@@ -7,6 +7,7 @@ describe("Starry Product Lab OS", () => {
     render(<App />);
 
     expect(screen.getByRole("dialog", { name: "Welcome" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Starry Product Lab 图标" })).toBeInTheDocument();
     expect(screen.getByText("✦ Starry Product Lab")).toBeInTheDocument();
     expect(screen.getByText("把灵感变成可运行的产品")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Hello，我是刘星雨" })).toBeInTheDocument();

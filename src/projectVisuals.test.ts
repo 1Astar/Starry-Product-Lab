@@ -8,6 +8,12 @@ describe("project case-study visuals", () => {
     ]);
   });
 
+  it("uses the masked Star PM dashboard screenshot for the project OS visual", () => {
+    expect(getProjectVisuals("star-pm", "/assets/projects/star-pm-poster.svg")).toEqual([
+      "/assets/case-studies/star-pm/dashboard-masked.png"
+    ]);
+  });
+
   it("keeps a work case on its supplied desensitized poster", () => {
     expect(getProjectVisuals("iot-ops", "/assets/projects/iot-ops-poster.svg")).toEqual([
       "/assets/projects/iot-ops-poster.svg"

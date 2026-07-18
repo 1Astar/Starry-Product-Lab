@@ -15,6 +15,10 @@ describe("CompetitiveAnalysisCaseStudy", () => {
     expect(screen.getByRole("heading", { name: "重点体验：不是生成一份报告，而是建立判断链路" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "它不是一开始就是工作台" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "这个项目让我重新理解了“分析工具”的价值" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "竞品分析工作台 Demo 截图（已脱敏）" })).toHaveAttribute(
+      "src",
+      "/assets/case-studies/competitive-analysis/workbench-demo-masked.png"
+    );
   });
 
   it("routes back to Idea Lab and navigates to the next idea", () => {
