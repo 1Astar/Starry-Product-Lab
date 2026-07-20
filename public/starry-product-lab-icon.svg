@@ -1,0 +1,22 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="96" height="96" rx="24" fill="url(#bg)"/>
+  <circle cx="48" cy="48" r="22" fill="url(#planet)"/>
+  <path d="M24 56C35 42 58 34 77 36" stroke="#F6C86B" stroke-width="5" stroke-linecap="round"/>
+  <path d="M20 60C36 68 62 66 78 52" stroke="#B899FF" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="38" cy="38" r="4" fill="#F5ECD7"/>
+  <circle cx="59" cy="53" r="3" fill="#081026" opacity=".55"/>
+  <path d="M74 20L77 27L84 30L77 33L74 40L71 33L64 30L71 27L74 20Z" fill="#F6C86B"/>
+  <path d="M27 22L29 26L33 28L29 30L27 34L25 30L21 28L25 26L27 22Z" fill="#D9C8FF"/>
+  <defs>
+    <linearGradient id="bg" x1="8" y1="7" x2="88" y2="91" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1026"/>
+      <stop offset=".52" stop-color="#2B356B"/>
+      <stop offset="1" stop-color="#0B1026"/>
+    </linearGradient>
+    <radialGradient id="planet" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(39 35) rotate(54) scale(42 39)">
+      <stop stop-color="#F5ECD7"/>
+      <stop offset=".35" stop-color="#7B6CAB"/>
+      <stop offset="1" stop-color="#3B2B77"/>
+    </radialGradient>
+  </defs>
+</svg>
