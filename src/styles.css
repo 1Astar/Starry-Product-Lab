@@ -2906,6 +2906,8 @@ button { color: inherit; }
   display: grid;
   place-items: center;
   min-height: 170px;
+  overflow: hidden;
+  border-radius: 18px;
 }
 
 .noddy-visual-card > div i {
@@ -2915,6 +2917,16 @@ button { color: inherit; }
   background: linear-gradient(145deg, #fff3dc, #ffb889 62%, #a991ff);
   box-shadow: 0 24px 44px rgba(0,0,0,.28);
   transform: rotate(-8deg);
+}
+
+.noddy-visual-card > div img {
+  width: 100%;
+  height: 245px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: inset 0 1px rgba(255,255,255,.18);
 }
 
 .noddy-visual-card figcaption {
@@ -2929,6 +2941,127 @@ button { color: inherit; }
 .visual-device > div i { border-radius: 50% 50% 42% 42%; }
 .visual-system > div i { border-radius: 50%; }
 .visual-rule > div i { border-radius: 16px; background: linear-gradient(145deg, #202437, #7ee0ff); }
+
+.noddy-ui-comparison {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 205, 166, .18), transparent 30%),
+    radial-gradient(circle at 88% 10%, rgba(153, 214, 255, .16), transparent 26%),
+    linear-gradient(145deg, rgba(30, 22, 43, .98), rgba(11, 12, 25, .98));
+}
+
+.noddy-comparison-intro {
+  max-width: 820px;
+  margin: -12px 0 28px;
+  color: rgba(255,248,241,.78);
+}
+
+.noddy-comparison-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.noddy-comparison-panel {
+  position: relative;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 28px;
+  padding: 20px;
+  background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.045));
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.34),
+    inset 0 1px rgba(255,255,255,.16);
+}
+
+.noddy-comparison-panel.current {
+  border-color: rgba(255, 205, 166, .32);
+  background:
+    radial-gradient(circle at 84% 12%, rgba(255, 160, 184, .22), transparent 32%),
+    linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
+}
+
+.noddy-comparison-panel header {
+  margin-bottom: 18px;
+}
+
+.noddy-comparison-panel h3 {
+  margin: 0 0 8px;
+  color: #ffe5ba;
+  font-size: clamp(24px, 2.2vw, 34px);
+}
+
+.noddy-comparison-panel p {
+  margin: 0;
+}
+
+.noddy-comparison-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.noddy-comparison-panel.old .noddy-comparison-images {
+  grid-template-columns: 1fr;
+}
+
+.noddy-comparison-images figure {
+  margin: 0;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 22px;
+  padding: 10px;
+  background: rgba(255,255,255,.07);
+  box-shadow: 0 18px 38px rgba(0,0,0,.24);
+}
+
+.noddy-comparison-images img {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 16px;
+  display: block;
+}
+
+.noddy-comparison-panel.old .noddy-comparison-images img {
+  height: 230px;
+}
+
+.noddy-comparison-images figcaption {
+  display: grid;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.noddy-comparison-images strong {
+  color: #fff5dd;
+}
+
+.noddy-comparison-images small {
+  color: rgba(255,248,241,.62);
+}
+
+.noddy-comparison-decisions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.noddy-comparison-decisions p {
+  margin: 0;
+  border: 1px solid rgba(255, 205, 166, .24);
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(255, 237, 216, .08);
+}
+
+.noddy-comparison-decisions small {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffc88d;
+  font-weight: 800;
+}
 
 .noddy-note-grid {
   display: grid;
@@ -2985,7 +3118,9 @@ button { color: inherit; }
   .noddy-columns,
   .noddy-key-experience,
   .noddy-system-map,
-  .noddy-note-grid {
+  .noddy-note-grid,
+  .noddy-comparison-grid,
+  .noddy-comparison-decisions {
     grid-template-columns: 1fr;
   }
 
@@ -3010,6 +3145,17 @@ button { color: inherit; }
   .noddy-before-after p::before {
     grid-column: auto;
     justify-self: center;
+  }
+
+  .noddy-comparison-images,
+  .noddy-comparison-panel.old .noddy-comparison-images {
+    grid-template-columns: 1fr;
+  }
+
+  .noddy-comparison-images img,
+  .noddy-comparison-panel.old .noddy-comparison-images img {
+    height: auto;
+    max-height: 620px;
   }
 }
 

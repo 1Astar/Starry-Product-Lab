@@ -11,11 +11,20 @@ describe("NoddyCaseStudy", () => {
     expect(screen.getByText("真正的陪伴感，不是它一直说话，而是它在合适的时候回应你。")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "我为什么会做它？" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "一次陪伴，不是一句回复，而是一条完整的状态链路" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "UI 迭代对比：从功能控制感，到陪伴关系感" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "它不是一开始就“像活的”" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "这个项目让我重新理解了“陪伴感”" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Noddy 陪伴首页原型图（已脱敏）" })).toHaveAttribute(
       "src",
       "/assets/case-studies/noddy/home-masked.png"
+    );
+    expect(screen.getByRole("img", { name: "旧版：功能控制感：旧首页" })).toHaveAttribute(
+      "src",
+      "/assets/case-studies/noddy/comparison/old-home.png"
+    );
+    expect(screen.getByRole("img", { name: "新版：陪伴关系感：新版首页" })).toHaveAttribute(
+      "src",
+      "/assets/case-studies/noddy/comparison/new-home.png"
     );
   });
 

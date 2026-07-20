@@ -8,6 +8,13 @@ export interface NoddyVisual {
   title: string;
   caption: string;
   kind: "app" | "device" | "system" | "rule";
+  image?: string;
+}
+
+export interface NoddyComparisonImage {
+  title: string;
+  caption: string;
+  image: string;
 }
 
 export interface NoddyCaseStudyData {
@@ -32,6 +39,21 @@ export interface NoddyCaseStudyData {
   };
   experiences: Array<{ title: string; text: string }>;
   showcase: NoddyVisual[];
+  comparison: {
+    title: string;
+    intro: string;
+    old: {
+      title: string;
+      summary: string;
+      images: NoddyComparisonImage[];
+    };
+    current: {
+      title: string;
+      summary: string;
+      images: NoddyComparisonImage[];
+    };
+    decisions: string[];
+  };
   notes: Array<{ title: string; text: string }>;
   timeline: Array<{ label: string; text: string }>;
   reflection: {
@@ -111,14 +133,42 @@ export const noddyCaseStudy: NoddyCaseStudyData = {
     { title: "没有回应，也要有解释", text: "未连接、低电量、休眠、勿扰、时间未同步都不是错误码，而是陪伴关系里的边界说明。" }
   ],
   showcase: [
-    { title: "陪伴首页", caption: "第一眼看到的不是功能，而是 Noddy 现在怎么样。", kind: "app" },
-    { title: "设备连接与状态提示", caption: "硬件状态必须被温柔但清楚地解释。", kind: "device" },
+    { title: "陪伴首页", caption: "第一眼看到的不是功能，而是 Noddy 现在怎么样。", kind: "app", image: "/assets/case-studies/noddy/comparison/new-home.png" },
+    { title: "阶段任务", caption: "成长不是任务墙，而是陪伴关系慢慢靠近的路径。", kind: "app", image: "/assets/case-studies/noddy/comparison/new-stage-task.png" },
+    { title: "安静陪伴", caption: "陪伴不一定要说话，有时候安静待着就够了。", kind: "device", image: "/assets/case-studies/noddy/comparison/new-quiet-companion.png" },
+    { title: "成长技能 / 能力地图", caption: "能力不是教学任务，而是一起相处后慢慢点亮的经验。", kind: "app", image: "/assets/case-studies/noddy/comparison/new-growth-skills.png" },
     { title: "互动日记", caption: "每一次互动，都变成一段可以回看的相处记录。", kind: "app" },
-    { title: "性格状态", caption: "性格不是标签，而是长期相处方式留下的趋势。", kind: "system" },
-    { title: "成长技能 / 能力地图", caption: "能力不是教学任务，而是一起相处后慢慢点亮的经验。", kind: "app" },
-    { title: "安静陪伴", caption: "陪伴不一定要说话，有时候安静待着就够了。", kind: "device" },
+    { title: "性格状态", caption: "性格不是标签，而是长期相处方式留下的趋势。", kind: "system", image: "/assets/case-studies/noddy/comparison/old-personality.png" },
     { title: "情绪声音轴 / 动作规则", caption: "把“像活的”翻译成团队能执行的声音和动作规则。", kind: "rule" }
   ],
+  comparison: {
+    title: "UI 迭代对比：从功能控制感，到陪伴关系感",
+    intro: "这组新旧界面对比能很清楚地看出方向变化：旧版更像在管理一台设备，新版更像在照看一个正在成长的陪伴对象。",
+    old: {
+      title: "旧版：功能控制感",
+      summary: "阶段、设置、指令和性格参数被直接摆到前台，信息是清楚的，但体验更像功能集合。",
+      images: [
+        { title: "旧首页", caption: "成长阶段和设置入口占主导，陪伴关系还没有成为第一层信息。", image: "/assets/case-studies/noddy/comparison/old-home.png" },
+        { title: "指令弹窗", caption: "可识别指令被完整列出，更像设备说明书。", image: "/assets/case-studies/noddy/comparison/old-commands.png" },
+        { title: "性格参数", caption: "参数表达直观，但偏配置面板，情绪和关系还没有融进日常场景。", image: "/assets/case-studies/noddy/comparison/old-personality.png" }
+      ]
+    },
+    current: {
+      title: "新版：陪伴关系感",
+      summary: "首页先表达状态、亲密度和刚刚发生的互动，再把成长任务、档案与安静陪伴接成连续体验。",
+      images: [
+        { title: "新版首页", caption: "状态、陪伴天数、亲密度和互动提示成为主叙事。", image: "/assets/case-studies/noddy/comparison/new-home.png" },
+        { title: "阶段任务", caption: "成长任务被包装成靠近下一阶段的陪伴路径。", image: "/assets/case-studies/noddy/comparison/new-stage-task.png" },
+        { title: "安静陪伴", caption: "用沉浸插画表达陪伴不一定要说话。", image: "/assets/case-studies/noddy/comparison/new-quiet-companion.png" },
+        { title: "成长档案", caption: "技能、阶段和熟悉度被沉淀成可回看的关系材料。", image: "/assets/case-studies/noddy/comparison/new-growth-skills.png" }
+      ]
+    },
+    decisions: [
+      "把“设备设置”后置，把“它现在怎么样”前置。",
+      "把指令列表改成成长任务和陪伴小事，降低工具感。",
+      "把性格参数从配置项，转成长期相处后留下的状态和档案。"
+    ]
+  },
   notes: [
     { title: "从“会动的玩具”到“有回应的对象”", text: "真正需要被设计的是：它为什么这样动，它在什么状态下不应该动，用户怎么知道它不是坏了，而是在休息。" },
     { title: "从情绪文案到情绪系统", text: "情绪必须同时影响 App 状态、设备动作、声音语气、提醒边界、互动记录和性格趋势。" },

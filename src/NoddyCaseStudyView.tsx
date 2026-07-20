@@ -1,6 +1,6 @@
 import { ArrowLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
-import { noddyCaseStudy, type NoddyVisual } from "./noddyCaseStudy";
+import { noddyCaseStudy, type NoddyComparisonImage, type NoddyVisual } from "./noddyCaseStudy";
 
 interface NoddyCaseStudyProps {
   onBack: () => void;
@@ -133,6 +133,33 @@ export function NoddyCaseStudy({ onBack, onNavigate }: NoddyCaseStudyProps) {
         </div>
       </section>
 
+      <section className="noddy-section noddy-ui-comparison" id="noddy-ui-comparison">
+        <SectionLabel label="06A" title={data.comparison.title} />
+        <p className="noddy-comparison-intro">{data.comparison.intro}</p>
+        <div className="noddy-comparison-grid">
+          <ComparisonPanel
+            title={data.comparison.old.title}
+            summary={data.comparison.old.summary}
+            images={data.comparison.old.images}
+            tone="old"
+          />
+          <ComparisonPanel
+            title={data.comparison.current.title}
+            summary={data.comparison.current.summary}
+            images={data.comparison.current.images}
+            tone="current"
+          />
+        </div>
+        <div className="noddy-comparison-decisions">
+          {data.comparison.decisions.map((decision, index) => (
+            <p key={decision}>
+              <small>{String(index + 1).padStart(2, "0")}</small>
+              {decision}
+            </p>
+          ))}
+        </div>
+      </section>
+
       <section className="noddy-section noddy-notes" id="noddy-iterations">
         <SectionLabel label="07" title="它不是一开始就“像活的”" />
         <div className="noddy-note-grid">
@@ -228,11 +255,52 @@ function DeviceMockup({ title, caption }: { title: string; caption: string }) {
 function VisualCard({ visual }: { visual: NoddyVisual }) {
   return (
     <figure className={`noddy-visual-card visual-${visual.kind}`}>
-      <div><i /><span>{visual.kind}</span></div>
+      <div>
+        {visual.image ? (
+          <img src={visual.image} alt={`${visual.title}界面截图`} />
+        ) : (
+          <>
+            <i />
+            <span>{visual.kind}</span>
+          </>
+        )}
+      </div>
       <figcaption>
         <strong>{visual.title}</strong>
         <small>{visual.caption}</small>
       </figcaption>
     </figure>
+  );
+}
+
+function ComparisonPanel({
+  title,
+  summary,
+  images,
+  tone
+}: {
+  title: string;
+  summary: string;
+  images: NoddyComparisonImage[];
+  tone: "old" | "current";
+}) {
+  return (
+    <article className={`noddy-comparison-panel ${tone}`}>
+      <header>
+        <h3>{title}</h3>
+        <p>{summary}</p>
+      </header>
+      <div className="noddy-comparison-images">
+        {images.map((item) => (
+          <figure key={item.image}>
+            <img src={item.image} alt={`${title}：${item.title}`} />
+            <figcaption>
+              <strong>{item.title}</strong>
+              <small>{item.caption}</small>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </article>
   );
 }
